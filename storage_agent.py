@@ -4,12 +4,14 @@ import re
 import argparse
 import subprocess
 import requests
+from datetime import datetime
 
 class StorageAgent:
     def __init__(self, data_path="."):
         self.memory_path = os.path.join(data_path, "memory")
         self.knowledge_path = os.path.join(data_path, "knowledge")
         self.stats_path = os.path.join(self.memory_path, "agent_stats.json")
+        self.history_path = os.path.join(self.memory_path, "task_history.json")
         
         for path in [self.memory_path, self.knowledge_path]:
             if not os.path.exists(path):
@@ -35,6 +37,27 @@ class StorageAgent:
         print(f"{color}{amount:.1f} Credits\033[0m | {reason} | Bal: {self.stats['balance']:.1f}")
         self.save_stats()
 
+    # --- NEW: EPISODIC MEMORY (Remembering HOW tasks were done) ---
+    def log_task(self, task, skill_name, result, status="success"):
+        """Saves a detailed record of the task execution to the hard drive."""
+        history = []
+        if os.path.exists(self.history_path):
+            with open(self.history_path, 'r') as f:
+                history = json.load(f)
+        
+        entry = {
+            "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            "task": task,
+            "skill_used": skill_name,
+            "result_summary": str(result)[:200], # Save a snippet of what was produced
+            "status": status
+        }
+        history.append(entry)
+        
+        with open(self.history_path, 'w') as f:
+            json.dump(history, f, indent=4)
+        print(f"\033[94m[MEMORY] Task logged to history. I will remember how I did this.\033[0m")
+
     def learn_new_skill(self, skill_name, logic_steps, keywords):
         self.update_balance(-2.0, "Writing New Skill to Disk")
         skill_data = {
@@ -47,14 +70,13 @@ class StorageAgent:
 
     def search_memory(self, task):
         self.update_balance(-0.5, "Disk Search (Cheap)")
-        skills = [f for f in os.listdir(self.memory_path) if f.endswith(".json") and f != "agent_stats.json"]
+        skills = [f for f in os.listdir(self.memory_path) if f.endswith(".json") and f not in ["agent_stats.json", "task_history.json", "error_database.json"]]
         memories = []
         for skill_file in skills:
             with open(os.path.join(self.memory_path, skill_file), 'r') as f:
                 memories.append(json.load(f))
         
         memories.sort(key=lambda x: x.get("complexity", 0), reverse=True)
-
         for memory in memories:
             if any(keyword.lower() in task.lower() for keyword in memory.get("keywords", [])):
                 return memory
@@ -65,23 +87,35 @@ class StorageAgent:
         if memory:
             print(f"[EXEC] Using Stored Skill: '{memory['name']}'")
             self.update_balance(-1.0, "Executing Stored Logic")
-            # --- INJECT AGENT INSTANCE FOR SELF-TESTING ---
             exec_context = {"task": task, "agent": self, "self": self}
             try:
                 exec(memory['logic'], globals(), exec_context)
                 self.update_balance(5.0, "Task SUCCESS")
+                
+                # --- LOG TO EPISODIC MEMORY ---
+                self.log_task(task, memory['name'], "Successfully executed logic.")
                 return True
             except Exception as e:
                 print(f"[!] Error: {e}")
+                self.log_task(task, memory['name'], str(e), status="failed")
                 return False
         else:
             print("[FAIL] No matching skill found.")
             return False
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Full Capability Storage Agent")
+    parser = argparse.ArgumentParser(description="Episodic Memory Storage Agent")
     parser.add_argument("query", type=str, nargs="?", help="Task for the agent")
+    parser.add_argument("--history", action="store_true", help="Show task history")
+    
     args = parser.parse_args()
     agent = StorageAgent()
-    if args.query:
+
+    if args.history:
+        if os.path.exists(agent.history_path):
+            with open(agent.history_path, 'r') as f:
+                print(json.dumps(json.load(f), indent=4))
+        else:
+            print("No history found.")
+    elif args.query:
         agent.execute_task(args.query)

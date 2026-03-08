@@ -1,3 +1,4 @@
 {
-    "heal error: 'traceback (most recent call last):\n  file \"/home/u0_a424/projects/micrograd/test_app.py\", line 1, in <module>\n    print(x) # intentional error\n          ^\nnameerror: name 'x' is not defined'": "p = 0 # Fixed from memory"
+    "heal error: 'traceback (most recent call last):\n  file \"/home/u0_a424/projects/micrograd/test_app.py\", line 1, in <module>\n    print(x) # intentional error\n          ^\nnameerror: name 'x' is not defined'": "p = 0 # Fixed from memory",
+    "how is my system health?": "p = 0 # Fixed from memory"
 }
