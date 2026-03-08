@@ -1,0 +1,12 @@
+{
+    "name": "NextJS Scaffolder",
+    "logic": "\nimport os\nsite_name = task.split('for')[-1].strip().replace(' ', '_').lower()\nos.makedirs(f'{site_name}/app', exist_ok=True)\nos.makedirs(f'{site_name}/components', exist_ok=True)\nprint(f'AI Output: Created Next.js structure for {site_name}')\n",
+    "keywords": [
+        "scaffold",
+        "structure",
+        "directory",
+        "nextjs project"
+    ],
+    "times_used": 0,
+    "status": "active"
+}

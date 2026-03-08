@@ -1,0 +1,14 @@
+{
+    "name": "API Client Builder",
+    "logic": "\nprint('AI Output: Generating API Client Code...')\nprint(\"\"\"\n// fetchClient.ts\nexport async function fetchData(endpoint: string) {\n  try {\n    const res = await fetch(`https://api.example.com${endpoint}`);\n    if (!res.ok) throw new Error('Network response was not ok');\n    return await res.json();\n  } catch (error) {\n    console.error('Fetch error:', error);\n    throw error;\n  }\n}\n\"\"\")\n",
+    "keywords": [
+        "api",
+        "client",
+        "fetch",
+        "axios",
+        "request"
+    ],
+    "times_used": 0,
+    "status": "active",
+    "complexity": 390
+}

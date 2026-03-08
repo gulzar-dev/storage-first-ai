@@ -1,0 +1,14 @@
+{
+    "name": "Git Project Initializer",
+    "logic": "\nimport os, subprocess\nproject = task.split('for')[-1].strip() if 'for' in task else 'new_project'\nos.makedirs(project, exist_ok=True)\nsubprocess.run(['git', 'init'], cwd=project)\nwith open(f'{project}/.gitignore', 'w') as f:\n    f.write('node_modules/\\n__pycache__/\\n.env\\n')\nprint(f'AI Output: Initialized Git repository for {project}')\n",
+    "keywords": [
+        "git",
+        "init",
+        "version control",
+        "repo",
+        "repository"
+    ],
+    "times_used": 0,
+    "status": "active",
+    "complexity": 339
+}

@@ -1,0 +1,14 @@
+{
+    "name": "Database Configurator",
+    "logic": "\nprint('AI Output: Generating SQLite / Prisma Configuration...')\nprint(\"\"\"\n// schema.prisma\ndatasource db {\n  provider = \"sqlite\"\n  url      = \"file:./dev.db\"\n}\n\ngenerator client {\n  provider = \"prisma-client-js\"\n}\n\nmodel User {\n  id    Int     @id @default(autoincrement())\n  email String  @unique\n  name  String?\n}\n\"\"\")\n",
+    "keywords": [
+        "database",
+        "sqlite",
+        "prisma",
+        "sql",
+        "db config"
+    ],
+    "times_used": 0,
+    "status": "active",
+    "complexity": 322
+}

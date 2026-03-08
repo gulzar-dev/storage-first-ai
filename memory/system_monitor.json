@@ -1,0 +1,13 @@
+{
+    "name": "System Monitor",
+    "logic": "\nimport psutil\nimport os\nram = psutil.virtual_memory().percent\ndisk = psutil.disk_usage(\"/\").percent\nprint(f\"AI Output: System Health Check: RAM Usage: {ram}% | Disk Usage: {disk}%\")\nif ram > 80:\n    print(\"AI Advice: RAM is high! Close some apps to keep our 8GB system smooth.\")\n",
+    "keywords": [
+        "system",
+        "ram",
+        "disk",
+        "health",
+        "monitor"
+    ],
+    "times_used": 0,
+    "status": "active"
+}

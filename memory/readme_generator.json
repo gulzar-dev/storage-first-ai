@@ -1,0 +1,13 @@
+{
+    "name": "Readme Generator",
+    "logic": "\nproject_name = task.split('for')[-1].strip().title() if 'for' in task else 'Project'\nprint(f'AI Output: Generating Professional README for {project_name}...')\nprint(f\"\"\"\n# {project_name}\n\n## Overview\nA high-performance application built using local, storage-first AI methodologies.\n\n## Quick Start\n```bash\nnpm install\nnpm run dev\n```\n\n## Architecture\n- **Frontend:** Next.js / React\n- **Database:** SQLite\n- **Intelligence:** Local Storage-First AI Engine\n\"\"\")\n",
+    "keywords": [
+        "readme",
+        "docs",
+        "documentation",
+        "markdown"
+    ],
+    "times_used": 0,
+    "status": "active",
+    "complexity": 462
+}

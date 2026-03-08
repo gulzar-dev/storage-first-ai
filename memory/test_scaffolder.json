@@ -1,0 +1,14 @@
+{
+    "name": "Test Scaffolder",
+    "logic": "\nprint('AI Output: Generating Jest Test Suite...')\nprint(\"\"\"\n// component.test.js\nimport { render, screen } from '@testing-library/react';\nimport '@testing-library/jest-dom';\nimport MyComponent from './MyComponent';\n\ndescribe('MyComponent', () => {\n  it('renders successfully', () => {\n    render(<MyComponent />);\n    expect(screen.getByText(/Storage-First AI/i)).toBeInTheDocument();\n  });\n});\n\"\"\")\n",
+    "keywords": [
+        "test",
+        "jest",
+        "pytest",
+        "unit test",
+        "tdd"
+    ],
+    "times_used": 0,
+    "status": "active",
+    "complexity": 401
+}

@@ -1,0 +1,12 @@
+{
+    "name": "Time Manager",
+    "logic": "\nfrom datetime import datetime\nnow = datetime.now().strftime(\"%Y-%m-%d %H:%M:%S\")\nprint(f\"AI Output: The current system time is {now}.\")\n",
+    "keywords": [
+        "time",
+        "date",
+        "clock",
+        "today"
+    ],
+    "times_used": 0,
+    "status": "active"
+}
