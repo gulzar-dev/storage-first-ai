@@ -1,0 +1,7 @@
+scikit-learn
+psutil
+requests
+duckduckgo-search
+exa-py
+torch
+pytest
