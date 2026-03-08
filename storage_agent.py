@@ -53,7 +53,6 @@ class StorageAgent:
             with open(os.path.join(self.memory_path, skill_file), 'r') as f:
                 memories.append(json.load(f))
         
-        # Sort by complexity: Higher complexity skills are tried first
         memories.sort(key=lambda x: x.get("complexity", 0), reverse=True)
 
         for memory in memories:
@@ -66,10 +65,10 @@ class StorageAgent:
         if memory:
             print(f"[EXEC] Using Stored Skill: '{memory['name']}'")
             self.update_balance(-1.0, "Executing Stored Logic")
-            local_context = {"task": task, "result": None} 
+            # --- INJECT AGENT INSTANCE FOR SELF-TESTING ---
+            exec_context = {"task": task, "agent": self, "self": self}
             try:
-                # We define local_context for the exec environment
-                exec(memory['logic'], globals(), {"task": task, "local_context": local_context})
+                exec(memory['logic'], globals(), exec_context)
                 self.update_balance(5.0, "Task SUCCESS")
                 return True
             except Exception as e:

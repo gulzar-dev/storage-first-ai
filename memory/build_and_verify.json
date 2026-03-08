@@ -1,0 +1,12 @@
+{
+    "name": "Build and Verify",
+    "logic": "\nimport subprocess\nimport os\n\nprint(f\"AI Builder: Building and Verifying {task}...\")\n\n# Step 1: Build (Simulated)\nwith open(\"test_app.py\", \"w\") as f:\n    f.write(\"print(x) # Intentional Error\")\n\n# Step 2: Run Test\nprint(\"AI Builder: Running automated test...\")\ntry:\n    result = subprocess.check_output(\"python3 test_app.py\", shell=True, stderr=subprocess.STDOUT, text=True)\n    print(f\"AI Output: Test PASSED! Output: {result.strip()}\")\nexcept subprocess.CalledProcessError as e:\n    err = e.output.strip()\n    print(f\"AI Builder: Test FAILED! Error detected: {err}\")\n    \n    # Step 3: Trigger Healer automatically!\n    # We use 'agent' because we will inject it into the local_context\n    print(\"AI Builder: Triggering Autonomous Healer...\")\n    agent.execute_task(f\"Heal error: '{err}'\")\n    \n    # Step 4: Re-verify\n    print(\"AI Builder: Re-running test after healing...\")\n    os.system(\"python3 test_app.py\")\n",
+    "keywords": [
+        "build and test",
+        "verify",
+        "run loop"
+    ],
+    "times_used": 0,
+    "status": "active",
+    "complexity": 916
+}

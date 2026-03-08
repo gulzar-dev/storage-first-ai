@@ -1,0 +1,1 @@
+import React from 'react'; export default function Page() { return (<main className='{style['f']} antialiased'>{''.join(sections)}</main>); }
