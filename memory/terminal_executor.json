@@ -1,0 +1,14 @@
+{
+    "name": "Terminal Executor",
+    "logic": "\nimport subprocess\nimport re\n\n# Extract the likely command from the task\n# Example task: 'Run ls -la in terminal' -> 'ls -la'\ncmd_match = re.search(r'run (.*?) (in|on|at|)', task.lower())\ncommand = cmd_match.group(1) if cmd_match else task\n\nprint(f'AI ALERT: I am about to run the following command on your system: {command}')\ntry:\n    # Run the command and capture output\n    output = subprocess.check_output(command, shell=True, text=True, stderr=subprocess.STDOUT)\n    print('--- Command Output ---')\n    print(output)\n    print('----------------------')\nexcept subprocess.CalledProcessError as e:\n    print(f'[!] Command failed with exit code {e.returncode}')\n    print(f'[!] Error Output: {e.output}')\n",
+    "keywords": [
+        "run command",
+        "terminal",
+        "execute",
+        "shell",
+        "bash"
+    ],
+    "times_used": 0,
+    "status": "active",
+    "complexity": 707
+}
