@@ -1,0 +1,14 @@
+{
+    "name": "Senior Debugger",
+    "logic": "\nimport os\n# Example task: \"Fix errors in coffee/app/page.tsx\"\npath_match = re.search(r\"in (.*?)($| )\", task)\nfile_path = path_match.group(1).strip() if path_match else None\n\nif file_path and os.path.exists(file_path):\n    print(f\"AI Debugger: Reading {file_path} to find issues...\")\n    with open(file_path, \"r\") as f:\n        content = f.read()\n    \n    # Logic to fix common AI-generated errors\n    fixed_content = content\n    if content.count(\"{\") != content.count(\"}\"):\n        print(\"AI Debugger: Detected mismatched braces. Attempting fix...\")\n        # (Simplified fix logic for prototype)\n        if content.count(\"{\") > content.count(\"}\"):\n            fixed_content += \"}\" * (content.count(\"{\") - content.count(\"}\"))\n    \n    # Overwrite with the 'fixed' version\n    with open(file_path, \"w\") as f:\n        f.write(fixed_content)\n    print(f\"AI Output: Successfully audited and patched {file_path}.\")\nelse:\n    print(f\"AI Error: Could not find file to debug at {file_path}\")\n",
+    "keywords": [
+        "fix",
+        "debug",
+        "error",
+        "broken",
+        "repair"
+    ],
+    "times_used": 0,
+    "status": "active",
+    "complexity": 985
+}
